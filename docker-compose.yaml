@@ -1,0 +1,58 @@
+﻿version: '3.9'
+
+services:
+#  api:
+#    container_name: api
+#    build:
+#      context: ./
+#      dockerfile: ./Api/Dockerfile
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      db:
+#        condition: service_healthy
+#    networks:
+#      - backend
+#  
+  db:
+    container_name: db
+    image: postgres
+    volumes:
+      - db-data:/var/lib/postgresql/
+    environment:
+      POSTGRES_DB: "postgres"
+      POSTGRES_USER: "test"
+      POSTGRES_PASSWORD: "test"
+    ports:
+      - "5432:5432"
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$test $$postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  
+  minio:
+    image: bitnami/minio:2024.11.7
+    restart: always
+    ports:
+      - ${MINIO_PORT}:${MINIO_PORT}
+      - ${MINIO_CONSOLE_PORT}:${MINIO_CONSOLE_PORT}
+    environment:
+      MINIO_ROOT_USER: ${MINIO_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_PASSWORD}
+      MINIO_DEFAULT_BUCKETS: ${MINIO_BUCKET}
+      MINIO_API_PORT_NUMBER: ${MINIO_PORT}
+      MINIO_CONSOLE_PORT_NUMBER: ${MINIO_CONSOLE_PORT}
+    volumes:
+      - minio-data:/bitnami/minio/data
+
+    
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  db-data:
+  minio-data:

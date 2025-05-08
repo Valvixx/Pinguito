@@ -21,4 +21,10 @@ public class AdvertController : ControllerBase
     {
         return (Ok(await _advertService.CreateAdvert(advertRequest)));
     }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> Get(Guid id)
+    {
+        return Ok(await _advertService.GetAdvertById(id));
+    }
 }

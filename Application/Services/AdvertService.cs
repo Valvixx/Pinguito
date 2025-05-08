@@ -8,7 +8,7 @@ using Mapster;
 
 namespace Application.Services;
 
-public class AdvertService:IAdvertService
+public class AdvertService : IAdvertService
 {
     private readonly IAdvertRepository _advertRepository;
 
@@ -25,12 +25,18 @@ public class AdvertService:IAdvertService
         {
             var id = await _advertRepository.CreateAdvert(advert);
             _advertRepository.Commit();
-            return new CreateAdvertResponse { Id = advert.Id};
+            return new CreateAdvertResponse { Id = advert.Id };
         }
         catch
         {
             _advertRepository.Rollback();
             throw;
         }
+    }
+
+    public async Task<GetAdvertByIdResponse> GetAdvertById(Guid id)
+    {
+        var dbAdvert = await _advertRepository.GetAdvertById(id);
+        return dbAdvert.Adapt<GetAdvertByIdResponse>();
     }
 }

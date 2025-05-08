@@ -61,7 +61,19 @@ namespace Infrastructure.Scripts.Advert {
         
         /// <summary>
         ///   Looks up a localized string similar to INSERT INTO adverts (title, description, price, creation_datetime, status, user_id, category)
-        ///VALUES (@title, @description, @price, @creationDateTime, @status, @userId, @category).
+        ///VALUES (@title, @description, @price, @creationDateTime, @status, @userId, @category);
+        ///.
+        /// </summary>
+        internal static string GetById {
+            get {
+                return ResourceManager.GetString("GetById", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to INSERT INTO adverts (title, description, price, creation_datetime, status, user_id, category)
+        ///VALUES (@title, @description, @price, @creationDateTime, @status, @userId, @category);
+        ///.
         /// </summary>
         internal static string Insert {
             get {

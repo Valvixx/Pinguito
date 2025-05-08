@@ -6,5 +6,6 @@ namespace Application.Interfaces;
 
 public interface IAdvertService
 {
-    public Task<CreateAdvertResponse> CreateAdvert(CreateAdvertRequest advertRequest);
+    public Task<CreateAdvertResponse> CreateAdvert (CreateAdvertRequest advertRequest);
+    public Task<GetAdvertByIdResponse> GetAdvertById(Guid id);
 }

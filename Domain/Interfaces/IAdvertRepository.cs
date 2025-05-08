@@ -8,4 +8,5 @@ public interface IAdvertRepository
     void Commit();
     void Rollback();
     public Task<int> CreateAdvert(DbAdvert dbAdvert);
+    public Task<DbAdvert> GetAdvertById(Guid id);
 }

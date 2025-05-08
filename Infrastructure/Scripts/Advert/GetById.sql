@@ -1,0 +1,1 @@
+﻿SELECT * FROM adverts WHERE id = @id
